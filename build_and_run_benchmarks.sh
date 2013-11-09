@@ -42,6 +42,9 @@ SEC=2a2H57dBggubW1_rqglC7jtK
 TABID=1YxEmNpeUoGCBptDK0ddtomC_oK2IVH1f2M89IIA
 # https://www.google.com/fusiontables/DataSource?docid=1YxEmNpeUoGCBptDK0ddtomC_oK2IVH1f2M89IIA#rows
 
+# RUNIT=./run_benchmark
+RUNIT=./dist/dist-sandbox-c04b1678/build/run_benchmark/run_benchmark
+
 # Enable upload of benchmarking data to a Google Fusion Table:
-# ./run_benchmark --server --keepgoing --trials=$TRIALS --fusion-upload=$TABID --clientid=$CID --clientsecret=$SEC $*
-./run_benchmark --server --keepgoing --trials=$TRIALS --fusion-upload=$TABID --clientid=$CID --clientsecret=$SEC $*
+# $RUNIT --server --keepgoing --trials=$TRIALS --fusion-upload=$TABID --clientid=$CID --clientsecret=$SEC $*
+$RUNIT --server --keepgoing --trials=$TRIALS --fusion-upload=$TABID --clientid=$CID --clientsecret=$SEC $*
