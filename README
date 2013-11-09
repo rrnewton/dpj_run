@@ -1,0 +1,10 @@
+
+
+A temporary repository full of benchmark harnesses
+====================================================
+
+This repository pulls together a few different pieces to be able to
+run push-button benchmarking for some DPJ and Cilk kernels.
+
+
+

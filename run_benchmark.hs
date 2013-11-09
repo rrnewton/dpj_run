@@ -58,8 +58,7 @@ data Flag = SetMode Mode
                 
 options :: [OptDescr Flag]
 options =
-    [
-      Option [] ["server"]  (NoArg (SetMode Server))  "server-sized benchmarks"
+    [ Option [] ["server"]  (NoArg (SetMode Server))  "server-sized benchmarks"
     , Option [] ["desktop"] (NoArg (SetMode Desktop)) "desktop-sized benchmarks"
     , Option [] ["quick"]   (NoArg (SetMode Quick))   "(default) quick testing"
     , Option [] ["amplify"] (ReqArg (WorkMultiplier . read) "DOUBLE")
@@ -107,8 +106,9 @@ main = do
 
 bls_quick :: [Benchmark DefaultParamMeaning]
 bls_quick =
- [ mkBenchmark "dpjbin/Benchmarks/Kernels/" ["TEST","1024"] defaultSettings
--- , Benchmark "dpjbin/Benchmarks/Kernels/" ["TEST","1024"] defaultSettings
+ [ mkBenchmark "dpjbin/Benchmarks/Kernels/" ["TEST","1024"] dpjSettings
+-- , Benchmark "dpjbin/Benchmarks/Kernels/" ["TEST","1024"] dpjSettings
+ , mkBenchmark "./cilksort/" [] cilkSettings
  ]
 
 bls_desktop :: Rational -> [Benchmark DefaultParamMeaning]
@@ -117,10 +117,11 @@ bls_desktop coef =
      sz = round$ coef * defaultSortSize in
  [ Benchmark { target="dpjbin/Benchmarks/Kernels/"
              , cmdargs= ["TIME",show sz]
-             , configs = defaultSettings
+             , configs = dpjSettings
              , progname = Just "dpj_MergeSort4"
              }
---  , Benchmark "dpjbin/Benchmarks/Kernels/" ["TIME",show sz] defaultSettings 
+ , mkBenchmark "./cilksort/" ["-n",show sz] cilkSettings
+--  , Benchmark "dpjbin/Benchmarks/Kernels/" ["TIME",show sz] dpjSettings 
  ]
 
 bls_server :: Rational -> [Benchmark DefaultParamMeaning]
@@ -134,8 +135,11 @@ defaultSortSize = 2^26 -- 67 million elements
 --------------------------------------------------------------------------------
 
 -- | Add any default settings into the config.
-defaultSettings :: BenchSpace DefaultParamMeaning
-defaultSettings = varyThreads (And [])
+dpjSettings :: BenchSpace DefaultParamMeaning
+dpjSettings = varyThreads (And [])
+
+cilkSettings :: BenchSpace DefaultParamMeaning
+cilkSettings = varyThreadsCilk (And [])
 
 --------------------------------------------------------------------------------
 -- Supporting definitions:
@@ -157,16 +161,17 @@ threadSelection = unsafePerformIO $ do
 
 -- | Add variation from thread count.    
 varyThreads :: BenchSpace DefaultParamMeaning -> BenchSpace DefaultParamMeaning
-varyThreads conf = Or
-  [
-    Or (map fn threadSelection)
-  ]
+varyThreads conf = Or (map fn threadSelection)
  where
    -- HORRIBLE HACK:
    fn n = Or [ Set (Threads n) $ RuntimeParam  ("MergeSort4 --dpj-num-threads "++ show n)
 --             , Set (Threads n) $ RuntimeParam  ("MergeSort8 --dpj-num-threads "++ show n)
              ]
 
+varyThreadsCilk :: BenchSpace DefaultParamMeaning -> BenchSpace DefaultParamMeaning
+varyThreadsCilk conf = Or (map fn threadSelection)
+ where
+   fn n = Set (Threads n) (RuntimeEnv "CILK_NWORKERS" (show n))
 
 --------------------------------------------------------------------------------
 -- Creating a (tweaked) custom build method for this suite
