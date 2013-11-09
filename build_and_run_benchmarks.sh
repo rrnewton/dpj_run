@@ -22,7 +22,7 @@ echo "Patching the Harness.java file and Makefile..."
 cp -v Harness.java dpjbin/Benchmarks/Kernels/dpj/Harness.java
 cp -v tweaked_Makefile dpjbin/Benchmarks/Kernels/Makefile
 
-# cabal sandbox init
+cabal sandbox init
 # cabal install --only-dependencies -j 
 # cabal build
 cabal install -j ./ ./HSBencher/
