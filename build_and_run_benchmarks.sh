@@ -17,6 +17,7 @@ if ! [ -f ./dpjbin/Implementation/bin/dpj ]; then
 fi
 
 source envvars.sh
+module add intel  # For ICC
 
 echo "Patching the Harness.java file and Makefile..."
 cp -v Harness.java dpjbin/Benchmarks/Kernels/dpj/Harness.java
