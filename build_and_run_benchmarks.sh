@@ -32,8 +32,7 @@ cabal install -j ./ ./HSBencher/
 
 # Complicated way to run the benchmarks:
 # ----------------------------------------
-# export TRIALS=5
-export TRIALS=1
+export TRIALS=5
 
 # Parfunc account, registered app in api console:
 CID=905767673358.apps.googleusercontent.com
