@@ -43,7 +43,7 @@ TABID=1YxEmNpeUoGCBptDK0ddtomC_oK2IVH1f2M89IIA
 # https://www.google.com/fusiontables/DataSource?docid=1YxEmNpeUoGCBptDK0ddtomC_oK2IVH1f2M89IIA#rows
 
 # RUNIT=./run_benchmark
-RUNIT=./dist/dist-sandbox-c04b1678/build/run_benchmark/run_benchmark
+RUNIT=./.cabal-sandbox/bin/run_benchmark
 
 # Enable upload of benchmarking data to a Google Fusion Table:
 # $RUNIT --server --keepgoing --trials=$TRIALS --fusion-upload=$TABID --clientid=$CID --clientsecret=$SEC $*
