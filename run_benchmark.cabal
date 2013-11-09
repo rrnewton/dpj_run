@@ -9,8 +9,9 @@ cabal-version:       >=1.18
 
 Executable run_benchmark
     Main-is: run_benchmark.hs
-    Build-depends: base >= 4.6, containers >= 0.5,
+    Build-depends: base >= 4.6, containers >= 0.5, directory,
+                   filepath, process, bytestring, mtl >= 2.1,
                    GenericPretty >= 1.2.1,
-                   hsbencher >= 1.3.9 && < 1.4
+                   hsbencher >= 1.4 && < 1.5 
     ghc-options: -threaded
 
