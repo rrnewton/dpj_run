@@ -1,0 +1,15 @@
+bench_*.log
+results*.dat
+results*.bak
+bench*.bak
+*~
+\#*
+.#*
+dpjbin/
+dpjbin.tar.gz
+
+
+
+
+
+
