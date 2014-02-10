@@ -50,4 +50,9 @@ time-par :
 	${DPJ-PAR} ${PROG} --dpj-foreach-cutoff ${DPJ_FC} --dpj-num-threads ${DPJ_NT} \
   TIME ${SIZE} ${ARG2} ${ARG3}
 
+# [2013.11.08] RRN: A hack to get mergesort running.
+# RUN_ARGS must at least include something like "TIME 1024"
+run:
+	dpj -cp parallel/classes -ea $(RUN_ARGS)
+
 .PRECIOUS: java/%.java

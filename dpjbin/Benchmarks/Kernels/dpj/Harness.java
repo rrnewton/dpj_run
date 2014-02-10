@@ -46,7 +46,8 @@ public abstract class Harness {
      * Make a new harness and do some default initialization.
      * Ordinarily your constructor should call this one via "super".
      */
-    public Harness(String progName, String[] args, int min, int max) {
+    public Harness(String progName, String[] args, 
+		   int min, int max) {
 	this.progName = progName;
 	if (args.length < min || args.length > max) {
 	    usage();
@@ -104,7 +105,9 @@ public abstract class Harness {
 	    runWork();
 	    endTime = System.nanoTime();
 	    runCleanup();
-	    System.out.println("Elapsed time: " + (endTime - startTime));
+	    //	    System.out.println("Elapsed time: " + (endTime - startTime));
+	    // RRN: Modifying this to the format expected by HSBencher:
+	    System.out.println("SELFTIMED: " + ((double)(endTime - startTime) / 1000000000));
 	} else {
 	    usage();
 	    System.exit(1);
