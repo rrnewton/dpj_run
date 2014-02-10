@@ -16,12 +16,12 @@ if ! [ -f ./dpjbin/Implementation/bin/dpj ]; then
   tar xzvf dpjbin.tar.gz
 fi
 
-source envvars.sh
-module add intel  # For ICC
-
 echo "Patching the Harness.java file and Makefile..."
 cp -v Harness.java dpjbin/Benchmarks/Kernels/dpj/Harness.java
 cp -v tweaked_Makefile dpjbin/Benchmarks/Kernels/Makefile
+
+source envvars.sh
+module add intel  # For ICC
 
 cabal sandbox init
 # cabal install --only-dependencies -j 
