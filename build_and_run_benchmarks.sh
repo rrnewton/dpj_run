@@ -10,6 +10,7 @@ if [ "$1" != "" ]; then
 fi
 
 if ! [ -f dpjbin.tar.gz ]; then
+  wget http://cs.indiana.edu/~rrnewton/archive/dpjbin_snapshot_2014.03.31.tar.gz --output-document=dpjbin.tar.gz || \
   wget http://dpj.cs.uiuc.edu/DPJ/Download_files/dpjbin.tar.gz
 fi 
 if ! [ -f ./dpjbin/Implementation/bin/dpj ]; then
